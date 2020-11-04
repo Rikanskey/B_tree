@@ -9,4 +9,7 @@ public class BTree {
         return true;
     }
 
+    public int[] insert(int value){
+        return new int[] {value};
+    }
 }
