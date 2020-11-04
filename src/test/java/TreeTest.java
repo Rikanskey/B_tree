@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TreeTest extends Assert {
@@ -18,35 +19,15 @@ public class TreeTest extends Assert {
     }
 
     @Test
-    public void insertTest(){
+    public void insertFifeListElements(){
         int t = 2;
         BTree tree = new BTree(t);
-        int[] result = tree.insert(2);
-        int[] expected = {2};
-        assertArrayEquals(result, expected);
-    }
-
-    @Test
-    public void insertThreeElements(){
-        int t = 2;
-        BTree tree = new BTree(t);
-        int[] expected = {2, 3, 4};
-        tree.insert(2);
-        tree.insert(3);
-        int[] result = tree.insert(4);
-        assertArrayEquals(expected, result);
-    }
-
-    @Test
-    public void insertFifeElements(){
-        int t = 2;
-        BTree tree = new BTree(t);
-        int[] expected = {2, 3, 4, 5, 6};
+        List<Integer> expected = Arrays.asList(2, 3, 4, 5, 6);
         tree.insert(2);
         tree.insert(3);
         tree.insert(4);
         tree.insert(5);
-        int[] result = tree.insert(6);
-        assertArrayEquals(expected, result);
+        List<Integer> result = tree.insert(6);
+        assertEquals(expected, result);
     }
 }
