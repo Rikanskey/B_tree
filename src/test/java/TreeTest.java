@@ -25,4 +25,15 @@ public class TreeTest extends Assert {
         int[] expected = {2};
         assertArrayEquals(result, expected);
     }
+
+    @Test
+    public void insertThreeElements(){
+        int t = 2;
+        BTree tree = new BTree(t);
+        int[] expected = {2, 3, 4};
+        tree.insert(2);
+        tree.insert(3);
+        int[] result = tree.insert(4);
+        assertArrayEquals(expected, result);
+    }
 }
