@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BTree {
@@ -48,6 +49,7 @@ public class BTree {
             }
            else {
                 keys.add(value);
+                Collections.sort(keys);
                 return true;
            }
            return true;
