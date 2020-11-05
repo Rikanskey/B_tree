@@ -27,10 +27,10 @@ public class TreeTest extends Assert {
         BTree tree = new BTree(t);
 
         BTree.BNode expected = new BTree.BNode();
-        expected.keys = Arrays.asList(2, 3, 4);
+        expected.setKeys(Arrays.asList(2, 3, 4));
         BTree.BNode expected_child = new BTree.BNode();
-        expected_child.keys = Arrays.asList(5, 6);
-        expected.children.add(expected_child);
+        expected_child.setKeys(Arrays.asList(5, 6));
+        expected.add_child(expected_child);
 
         tree.insert(2);
         tree.insert(3);
@@ -38,7 +38,7 @@ public class TreeTest extends Assert {
         tree.insert(5);
         tree.insert(6);
 
-        assertTrue(expected.keys.equals(tree.node.keys) &&
-                expected.children.get(0).keys.equals(tree.node.children.get(0).keys));
+        assertTrue(expected.getKeys().equals(tree.getNode().getKeys()) &&
+                expected.getChildren().get(0).getKeys().equals(tree.getNode().getChildren().get(0).getKeys()));
     }
 }

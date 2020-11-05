@@ -3,15 +3,35 @@ import java.util.List;
 
 public class BTree {
     private static int t;
-    public BNode node;
+    private BNode node;
 
     public static class BNode{
-        public List<Integer> keys;
-        public List<BNode> children;
+        private List<Integer> keys;
+        private List<BNode> children;
 
         BNode(){
             keys = new ArrayList<>();
             children = new ArrayList<>();
+        }
+
+        public List<BNode> getChildren() {
+            return children;
+        }
+
+        public List<Integer> getKeys() {
+            return keys;
+        }
+
+        public void setChildren(List<BNode> children) {
+            this.children = children;
+        }
+
+        public void setKeys(List<Integer> keys) {
+            this.keys = keys;
+        }
+
+        public void add_child(BNode child){
+            children.add(child);
         }
 
         public boolean add_key(Integer value){
@@ -39,6 +59,10 @@ public class BTree {
     BTree(int t){
         this.t = t;
         this.node = new BNode();
+    }
+
+    public BNode getNode() {
+        return node;
     }
 
     public boolean search(int key){
