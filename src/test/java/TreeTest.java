@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class TreeTest extends Assert {
 
     @Test
@@ -18,16 +19,26 @@ public class TreeTest extends Assert {
         assertEquals(expected, result);
     }
 
+
     @Test
-    public void insertFifeListElements(){
+    public void insertFiveNodesElements()
+    {
         int t = 2;
         BTree tree = new BTree(t);
-        List<Integer> expected = Arrays.asList(2, 3, 4, 5, 6);
+
+        BTree.BNode expected = new BTree.BNode();
+        expected.keys = Arrays.asList(2, 3, 4);
+        BTree.BNode expected_child = new BTree.BNode();
+        expected_child.keys = Arrays.asList(5, 6);
+        expected.children.add(expected_child);
+
         tree.insert(2);
         tree.insert(3);
         tree.insert(4);
         tree.insert(5);
-        List<Integer> result = tree.insert(6);
-        assertEquals(expected, result);
+        tree.insert(6);
+
+        assertTrue(expected.keys.equals(tree.node.keys) &&
+                expected.children.get(0).keys.equals(tree.node.children.get(0).keys));
     }
 }

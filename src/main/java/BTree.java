@@ -2,20 +2,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BTree {
-    private int t;
-    private List<Integer> nodes;
+    private static int t;
+    public BNode node;
+
+    public static class BNode{
+        public List<Integer> keys;
+        public List<BNode> children;
+
+        BNode(){
+            keys = new ArrayList<>();
+            children = new ArrayList<>();
+        }
+
+        public boolean add_key(Integer value){
+            if (2*t-1 == keys.size()){
+                boolean flag = false;
+                for (int i = 0; i < children.size() && !flag; i++)
+                    flag = children.get(i).add_key(value);
+                if (!flag){
+                    BNode child = new BNode();
+                    child.add_key(value);
+                    children.add(child);
+                    return true;
+                }
+            }
+           else {
+                keys.add(value);
+                return true;
+           }
+           return true;
+        }
+
+
+    }
 
     BTree(int t){
         this.t = t;
-        this.nodes = new ArrayList<>();
+        this.node = new BNode();
     }
 
     public boolean search(int key){
         return true;
     }
 
-    public List<Integer> insert(Integer value){
-        this.nodes.add(value);
-        return this.nodes;
+    public BNode insert(Integer value){
+        this.node.add_key(value);
+        return this.node;
     }
 }
