@@ -17,80 +17,32 @@ public class TreeTest extends Assert {
         assertEquals(expected, result);
     }
 
-
     @Test
-    public void insertFiveNodesElements()
-    {
+    public void insertElementsTree(){
         int t = 2;
         BTree tree = new BTree(t);
 
-        BTree.BNode expected = new BTree.BNode();
-        expected.setKeys(Arrays.asList(2, 3, 4));
-        BTree.BNode expected_child = new BTree.BNode();
-        expected_child.setKeys(Arrays.asList(5, 6));
-        expected.add_child(expected_child);
+        BTree expectedTree = new BTree(t);
+        BTree.BNode expectedNode_root = new BTree.BNode(null);
+        expectedNode_root.setKeys(new ArrayList<>(Arrays.asList(2, 4)));
+        BTree.BNode expectedNode_1 = new BTree.BNode(expectedNode_root);
+        expectedNode_1.setKeys(new ArrayList<>(Arrays.asList(1)));
+        expectedNode_root.add_child(expectedNode_1);
+        BTree.BNode expectedNode_2 = new BTree.BNode(expectedNode_root);
+        expectedNode_2.setKeys(new ArrayList<>(Arrays.asList(3)));
+        expectedNode_root.add_child(expectedNode_2);
+        BTree.BNode expectedNode_3 = new BTree.BNode(expectedNode_root);
+        expectedNode_3.setKeys(new ArrayList<>(Arrays.asList(5, 6)));
+        expectedNode_root.add_child(expectedNode_3);
+        expectedTree.setNode(expectedNode_root);
 
+        tree.insert(1);
         tree.insert(2);
         tree.insert(3);
         tree.insert(4);
         tree.insert(5);
         tree.insert(6);
 
-        assertTrue(expected.getKeys().equals(tree.getNode().getKeys()) &&
-                expected.getChildren().get(0).getKeys().equals(tree.getNode().getChildren().get(0).getKeys()));
-    }
-
-    @Test
-    public void insertFiveNodesSortElements()
-    {
-        int t = 2;
-        BTree tree = new BTree(t);
-
-        BTree.BNode expected = new BTree.BNode();
-        expected.setKeys(Arrays.asList(2, 3, 4));
-        BTree.BNode expected_child = new BTree.BNode();
-        expected_child.setKeys(Arrays.asList(5, 6));
-        expected.add_child(expected_child);
-
-        tree.insert(4);
-        tree.insert(3);
-        tree.insert(2);
-        tree.insert(6);
-        tree.insert(5);
-
-
-        assertTrue(expected.getKeys().equals(tree.getNode().getKeys()) &&
-                expected.getChildren().get(0).getKeys().equals(tree.getNode().getChildren().get(0).getKeys()));
-    }
-
-    @Test
-    public void insertFiveNodesSortSearchElements()
-    {
-        int t = 2;
-        BTree tree = new BTree(t);
-        BTree.BNode test_node = new BTree.BNode();
-        test_node.setKeys(Arrays.asList(3));
-        BTree.BNode test_child_1 = new BTree.BNode();
-        test_child_1.setKeys(new ArrayList<>(Arrays.asList(1, 2)));
-        BTree.BNode test_child_2 = new BTree.BNode();
-        test_child_2.setKeys(new ArrayList<>(Arrays.asList(4, 6)));
-        test_node.add_child(test_child_1);
-        test_node.add_child(test_child_2);
-        tree.setNode(test_node);
-
-        BTree.BNode expected = new BTree.BNode();
-        expected.setKeys(Arrays.asList(3));
-        BTree.BNode expected_child_1 = new BTree.BNode();
-        expected_child_1.setKeys(new ArrayList<>(Arrays.asList(1, 2)));
-        BTree.BNode expected_child_2 = new BTree.BNode();
-        expected_child_2.setKeys(new ArrayList<>(Arrays.asList(4, 5, 6)));
-        expected.add_child(expected_child_1);
-        expected.add_child(expected_child_2);
-
-        tree.insert(5);
-
-
-        assertTrue(expected.getKeys().equals(tree.getNode().getKeys()) &&
-                expected.getChildren().get(1).getKeys().equals(tree.getNode().getChildren().get(1).getKeys()));
+        assertEquals(expectedTree, tree);
     }
 }
