@@ -35,27 +35,22 @@ public class BTree {
             children.add(child);
         }
 
-        public boolean add_key(Integer value){
-            if (2*t-1 == keys.size()){
-                boolean flag = false;
-                for (int i = 0; i < children.size() && !flag; i++)
-                    flag = children.get(i).add_key(value);
-                if (!flag){
-                    BNode child = new BNode();
-                    child.add_key(value);
-                    children.add(child);
-                    return true;
+        public boolean add_key(Integer value) {
+            boolean flag = false;
+            if (children.size() == 0) {
+                for (int i = 0; i < keys.size() && !flag; i++) {
+                    if (value < keys.get(i)) {
+                        keys.add(value);
+                        Collections.sort(keys);
+                        flag = true;
+                    }
                 }
             }
-           else {
-                keys.add(value);
-                Collections.sort(keys);
-                return true;
-           }
-           return true;
+            for (int i = 0; i < children.size() && !flag; i++) {
+                flag = children.get(i).add_key(value);
+            }
+            return flag;
         }
-
-
     }
 
     BTree(int t){
@@ -65,6 +60,10 @@ public class BTree {
 
     public BNode getNode() {
         return node;
+    }
+
+    public void setNode(BNode node) {
+        this.node = node;
     }
 
     public boolean search(int key){
