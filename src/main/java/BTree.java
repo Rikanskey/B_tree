@@ -153,8 +153,35 @@ public class BTree {
         this.node = node;
     }
 
-    public boolean search(int key){
-        return true;
+    public boolean search(int key) {
+        BNode search_node = node;
+        boolean flag = false;
+        int index_node = 0;
+        if (search_node.getKeys().get(search_node.getKeys().size() - 1) >= key) {
+            for (int i = 0; i < search_node.getKeys().size() && !flag; i++)
+                if (key == search_node.getKeys().get(i))
+                    flag = true;
+        }
+            while (!flag) {
+                for (BNode child : search_node.getChildren()) {
+                    if (child.getKeys().get(child.getKeys().size() - 1)
+                            >= key) {
+                        for (Integer value : child.getKeys()) {
+                            if (key == value) {
+                                flag = true;
+                                return flag;
+                            }
+                        }
+                        index_node = search_node.getChildren().indexOf(child);
+                        break;
+                    }
+                }
+                    if (search_node.getChildren().size() != 0)
+                        search_node = search_node.getChildren().get(index_node);
+                    else
+                        break;
+            }
+        return flag;
     }
 
     public BNode insert(Integer value){
@@ -162,3 +189,4 @@ public class BTree {
         return this.node;
     }
 }
+

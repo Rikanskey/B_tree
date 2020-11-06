@@ -45,4 +45,19 @@ public class TreeTest extends Assert {
 
         assertEquals(expectedTree, tree);
     }
+
+    @Test
+    public void searchElement(){
+        int t = 2;
+        BTree tree = new BTree(t);
+
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(4);
+        tree.insert(5);
+        boolean result = tree.search(6);
+
+        assertFalse(result);
+    }
 }
