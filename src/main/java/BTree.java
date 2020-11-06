@@ -62,6 +62,10 @@ public class BTree {
             Collections.sort(keys);
         }
 
+        public void delete_key(Integer value){
+            keys.remove(value);
+        }
+
         public void restruct(){
             if (keys.size() != 2*t-1)
                 return;
@@ -182,6 +186,38 @@ public class BTree {
                         break;
             }
         return flag;
+    }
+
+    public void delete_element(Integer key){
+        BNode search_node = node;
+        int index_node = 0;
+        if (search_node.getKeys().get(search_node.getKeys().size() - 1) >= key) {
+            for (int i = 0; i < search_node.getKeys().size(); i++)
+                if (key.equals(search_node.getKeys().get(i))){
+                    search_node.delete_key(key);
+                    return;
+                }
+
+        }
+        while (true) {
+            for (BNode child : search_node.getChildren()) {
+                if (child.getKeys().get(child.getKeys().size() - 1)
+                        >= key) {
+                    for (Integer value : child.getKeys()) {
+                        if (key.equals(value)) {
+                            child.delete_key(key);
+                            return;
+                        }
+                    }
+                    index_node = search_node.getChildren().indexOf(child);
+                    break;
+                }
+            }
+            if (search_node.getChildren().size() != 0)
+                search_node = search_node.getChildren().get(index_node);
+            else
+                break;
+        }
     }
 
     public BNode insert(Integer value){

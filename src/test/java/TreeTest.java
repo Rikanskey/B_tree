@@ -60,4 +60,35 @@ public class TreeTest extends Assert {
 
         assertFalse(result);
     }
+
+    @Test
+    public void deleteElement(){
+        int t = 2;
+        BTree tree = new BTree(t);
+
+        BTree treeExpected = new BTree(t);
+        BTree.BNode expectedNode = new BTree.BNode(null);
+        expectedNode.setKeys(new ArrayList<>(Arrays.asList(2, 4)));
+        BTree.BNode expectedFirstChild = new BTree.BNode(expectedNode);
+        expectedFirstChild.setKeys(new ArrayList<>(Arrays.asList(1)));
+        expectedNode.add_child(expectedFirstChild);
+        BTree.BNode expectedSecondChild = new BTree.BNode(expectedNode);
+        expectedNode.add_child(expectedSecondChild);
+        BTree.BNode expectedThirdChild = new BTree.BNode(expectedNode);
+        expectedThirdChild.setKeys(new ArrayList<>(Arrays.asList(5, 6)));
+        expectedNode.add_child(expectedThirdChild);
+        treeExpected.setNode(expectedNode);
+
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(4);
+        tree.insert(5);
+        tree.insert(6);
+        tree.delete_element(3);
+
+        assertEquals(treeExpected, tree);
+    }
+
+
 }
