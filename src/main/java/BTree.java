@@ -24,7 +24,7 @@ public class BTree {
                 sum += children.get(i).hashCode();
             for (int i = 0; i < keys.size(); i++)
                 sum += keys.get(i);
-            return sum;
+            return sum+children.size();
         }
 
         public List<BNode> getChildren() {
@@ -55,6 +55,15 @@ public class BTree {
         public void add_child(BNode child){
             children.add(child);
             child.setParent(this);
+        }
+
+        public void remove(){
+            parent.delete_child(this);
+            parent = null;
+        }
+
+        public void delete_child(BNode child){
+            children.remove(child);
         }
 
         public void insert_key(Integer value){
@@ -152,7 +161,6 @@ public class BTree {
     public BNode getNode() {
         return node;
     }
-
     public void setNode(BNode node) {
         this.node = node;
     }
@@ -188,6 +196,14 @@ public class BTree {
         return flag;
     }
 
+    public void delete_node(BNode node){
+        for (BNode child: node.getChildren()) {
+            node.getParent().add_child(child);
+            node.delete_child(child);
+        }
+        node.remove();
+    }
+
     public void delete_element(Integer key){
         BNode search_node = node;
         int index_node = 0;
@@ -195,6 +211,8 @@ public class BTree {
             for (int i = 0; i < search_node.getKeys().size(); i++)
                 if (key.equals(search_node.getKeys().get(i))){
                     search_node.delete_key(key);
+                    if (search_node.getKeys().size() <= t-1)
+                        delete_node(search_node);
                     return;
                 }
 
@@ -206,6 +224,8 @@ public class BTree {
                     for (Integer value : child.getKeys()) {
                         if (key.equals(value)) {
                             child.delete_key(key);
+                            if (child.getKeys().size() <= t-1)
+                                delete_node(child);
                             return;
                         }
                     }

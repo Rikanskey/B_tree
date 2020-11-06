@@ -8,16 +8,6 @@ import java.util.Arrays;
 public class TreeTest extends Assert {
 
     @Test
-    public void searchTest(){
-        int t = 2;
-        boolean result;
-        boolean expected = true;
-        BTree tree = new BTree(t);
-        result = tree.search(6);
-        assertEquals(expected, result);
-    }
-
-    @Test
     public void insertElementsTree(){
         int t = 2;
         BTree tree = new BTree(t);
@@ -62,7 +52,7 @@ public class TreeTest extends Assert {
     }
 
     @Test
-    public void deleteElement(){
+    public void deleteNode(){
         int t = 2;
         BTree tree = new BTree(t);
 
@@ -72,8 +62,6 @@ public class TreeTest extends Assert {
         BTree.BNode expectedFirstChild = new BTree.BNode(expectedNode);
         expectedFirstChild.setKeys(new ArrayList<>(Arrays.asList(1)));
         expectedNode.add_child(expectedFirstChild);
-        BTree.BNode expectedSecondChild = new BTree.BNode(expectedNode);
-        expectedNode.add_child(expectedSecondChild);
         BTree.BNode expectedThirdChild = new BTree.BNode(expectedNode);
         expectedThirdChild.setKeys(new ArrayList<>(Arrays.asList(5, 6)));
         expectedNode.add_child(expectedThirdChild);
@@ -89,6 +77,4 @@ public class TreeTest extends Assert {
 
         assertEquals(treeExpected, tree);
     }
-
-
 }
